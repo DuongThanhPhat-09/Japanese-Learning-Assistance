@@ -1,0 +1,63 @@
+import type { VocabGroup } from "./types";
+
+/** Stage 0 — Absolute beginner: greetings, classroom expressions, numbers. */
+export const INTRO: VocabGroup[] = [
+  {
+    tag: "chào hỏi",
+    items: [
+      ["おはようございます", "おはようございます", "chào buổi sáng (lịch sự)", "exp", "先生、おはようございます。", "Em chào thầy buổi sáng ạ."],
+      ["こんにちは", "こんにちは", "xin chào (ban ngày)", "exp", "こんにちは、田中です。", "Xin chào, tôi là Tanaka."],
+      ["こんばんは", "こんばんは", "chào buổi tối", "exp", "こんばんは。いい夜ですね。", "Chào buổi tối. Đêm nay đẹp nhỉ."],
+      ["さようなら", "さようなら", "tạm biệt", "exp", "皆さん、さようなら。", "Tạm biệt mọi người."],
+      ["おやすみなさい", "おやすみなさい", "chúc ngủ ngon", "exp", "もう遅いですね。おやすみなさい。", "Muộn rồi nhỉ. Chúc ngủ ngon."],
+      ["ありがとうございます", "ありがとうございます", "cảm ơn (lịch sự)", "exp", "手伝ってくれて、ありがとうございます。", "Cảm ơn vì đã giúp tôi."],
+      ["すみません", "すみません", "xin lỗi / xin phép", "exp", "すみません、駅はどこですか。", "Xin lỗi, nhà ga ở đâu ạ?"],
+      ["ごめんなさい", "ごめんなさい", "xin lỗi (thân mật)", "exp", "遅れてごめんなさい。", "Xin lỗi vì đến muộn."],
+      ["はじめまして", "はじめまして", "rất hân hạnh được gặp (lần đầu)", "exp", "はじめまして、グエンです。", "Rất vui được gặp, tôi là Nguyễn."],
+      ["よろしくお願いします", "よろしくおねがいします", "rất mong được giúp đỡ", "exp", "これからよろしくお願いします。", "Từ nay mong được anh chị giúp đỡ."],
+      ["いただきます", "いただきます", "xin phép ăn (trước bữa ăn)", "exp", "では、いただきます。", "Vậy thì, tôi xin phép ăn."],
+      ["ごちそうさまでした", "ごちそうさまでした", "cảm ơn vì bữa ăn (sau bữa ăn)", "exp", "おいしかったです。ごちそうさまでした。", "Ngon quá. Cảm ơn vì bữa ăn."],
+      ["いってきます", "いってきます", "tôi đi đây", "exp", "お母さん、いってきます。", "Mẹ ơi, con đi đây."],
+      ["いってらっしゃい", "いってらっしゃい", "đi cẩn thận nhé", "exp", "いってらっしゃい、気をつけて。", "Đi nhé, cẩn thận."],
+      ["ただいま", "ただいま", "tôi đã về", "exp", "ただいま。今日は疲れた。", "Con về rồi. Hôm nay mệt quá."],
+      ["おかえりなさい", "おかえりなさい", "chào mừng về nhà", "exp", "おかえりなさい。ご飯できているよ。", "Về rồi à. Cơm xong rồi đấy."],
+      ["はい", "はい", "vâng / có", "exp", "はい、わかりました。", "Vâng, tôi hiểu rồi."],
+      ["いいえ", "いいえ", "không", "exp", "いいえ、学生じゃありません。", "Không, tôi không phải là sinh viên."],
+      ["お元気ですか", "おげんきですか", "bạn có khỏe không?", "exp", "お久しぶりです。お元気ですか。", "Lâu rồi không gặp. Bạn khỏe không?"],
+      ["どうぞ", "どうぞ", "xin mời", "exp", "どうぞ、座ってください。", "Xin mời ngồi."],
+    ],
+  },
+  {
+    tag: "lớp học",
+    items: [
+      ["わかりました", "わかりました", "tôi hiểu rồi", "exp", "はい、わかりました。", "Vâng, tôi hiểu rồi."],
+      ["わかりません", "わかりません", "tôi không hiểu", "exp", "すみません、わかりません。", "Xin lỗi, tôi không hiểu."],
+      ["もう一度", "もういちど", "một lần nữa", "exp", "もう一度言ってください。", "Xin hãy nói lại một lần nữa."],
+      ["ゆっくり", "ゆっくり", "chậm rãi", "adv", "ゆっくり話してください。", "Xin hãy nói chậm."],
+      ["質問", "しつもん", "câu hỏi", "n", "質問があります。", "Tôi có câu hỏi."],
+      ["日本語", "にほんご", "tiếng Nhật", "n", "日本語を勉強しています。", "Tôi đang học tiếng Nhật."],
+      ["ベトナム語", "ベトナムご", "tiếng Việt", "n", "ベトナム語で話しましょう。", "Hãy nói bằng tiếng Việt."],
+      ["先生", "せんせい", "giáo viên, thầy/cô", "n", "山田先生は優しいです。", "Thầy Yamada hiền."],
+      ["学生", "がくせい", "học sinh, sinh viên", "n", "私は学生です。", "Tôi là sinh viên."],
+      ["名前", "なまえ", "tên", "n", "お名前は何ですか。", "Tên bạn là gì?"],
+    ],
+  },
+  {
+    tag: "số đếm",
+    items: [
+      ["一", "いち", "số 1", "num", "一つください。", "Cho tôi một cái."],
+      ["二", "に", "số 2", "num", "二人で行きます。", "Hai người cùng đi."],
+      ["三", "さん", "số 3", "num", "三時に会いましょう。", "Hẹn gặp lúc 3 giờ."],
+      ["四", "よん", "số 4 (cũng đọc là し)", "num", "四月に日本へ行きます。", "Tháng 4 tôi sẽ đi Nhật."],
+      ["五", "ご", "số 5", "num", "五分待ってください。", "Xin đợi 5 phút."],
+      ["六", "ろく", "số 6", "num", "六時に起きます。", "Tôi dậy lúc 6 giờ."],
+      ["七", "なな", "số 7 (cũng đọc là しち)", "num", "七日に帰ります。", "Tôi sẽ về vào ngày 7."],
+      ["八", "はち", "số 8", "num", "八百円です。", "800 yên."],
+      ["九", "きゅう", "số 9 (cũng đọc là く)", "num", "九時から仕事です。", "Làm việc từ 9 giờ."],
+      ["十", "じゅう", "số 10", "num", "十分ぐらいかかります。", "Mất khoảng 10 phút."],
+      ["百", "ひゃく", "một trăm", "num", "このペンは百円です。", "Cây bút này 100 yên."],
+      ["千", "せん", "một nghìn", "num", "千円札を持っています。", "Tôi có tờ 1000 yên."],
+      ["万", "まん", "mười nghìn", "num", "一万円です。", "10.000 yên."],
+    ],
+  },
+];

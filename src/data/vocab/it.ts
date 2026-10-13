@@ -1,0 +1,133 @@
+import type { VocabGroup } from "./types";
+
+/** Tags match ModuleTopic.vocabTag in data/modules/it.ts */
+export const IT: VocabGroup[] = [
+  {
+    tag: "software-dev",
+    items: [
+      ["開発", "かいはつ", "phát triển", "vs", "新機能を開発しています。", "Đang phát triển chức năng mới."],
+      ["実装", "じっそう", "triển khai (code), hiện thực hóa", "vs", "ログイン機能を実装しました。", "Đã triển khai chức năng đăng nhập."],
+      ["修正", "しゅうせい", "sửa", "vs", "バグを修正しました。", "Đã sửa lỗi."],
+      ["機能", "きのう", "chức năng", "n", "検索機能を追加します。", "Thêm chức năng tìm kiếm."],
+      ["不具合", "ふぐあい", "lỗi, trục trặc", "n", "本番環境で不具合が発生しました。", "Đã phát sinh lỗi trên môi trường production."],
+      ["仕様", "しよう", "đặc tả", "n", "仕様を確認してから実装します。", "Sẽ triển khai sau khi xác nhận đặc tả."],
+      ["ソースコード", "ソースコード", "mã nguồn", "kata", "ソースコードをレビューしてください。", "Hãy review mã nguồn."],
+      ["変数", "へんすう", "biến", "n", "変数名は分かりやすくしてください。", "Hãy đặt tên biến dễ hiểu."],
+      ["関数", "かんすう", "hàm", "n", "この関数は日付を返します。", "Hàm này trả về ngày."],
+      ["コードレビュー", "コードレビュー", "review code", "kata", "コードレビューで指摘を受けました。", "Tôi đã nhận được góp ý khi review code."],
+      ["リファクタリング", "リファクタリング", "tái cấu trúc mã", "kata", "古いコードをリファクタリングする。", "Tái cấu trúc mã cũ."],
+      ["工数", "こうすう", "công số (man-hour)", "n", "この作業の工数を見積もってください。", "Hãy ước tính công số cho công việc này."],
+      ["影響範囲", "えいきょうはんい", "phạm vi ảnh hưởng", "n", "修正の影響範囲を調査します。", "Điều tra phạm vi ảnh hưởng của việc sửa."],
+      ["ブランチ", "ブランチ", "nhánh (git)", "kata", "新しいブランチを切ります。", "Tạo một nhánh mới."],
+    ],
+  },
+  {
+    tag: "agile",
+    items: [
+      ["アジャイル", "アジャイル", "Agile", "kata", "アジャイル開発を採用しています。", "Chúng tôi áp dụng phát triển Agile."],
+      ["反復", "はんぷく", "lặp lại (iteration)", "vs", "短いサイクルで反復します。", "Lặp lại theo chu kỳ ngắn."],
+      ["振り返り", "ふりかえり", "nhìn lại (retrospective)", "n", "スプリントの最後に振り返りをします。", "Cuối sprint sẽ làm buổi nhìn lại."],
+      ["優先順位", "ゆうせんじゅんい", "thứ tự ưu tiên", "n", "タスクの優先順位を決めましょう。", "Hãy quyết định thứ tự ưu tiên của task."],
+      ["見積もる", "みつもる", "ước lượng", "v5", "ストーリーポイントで見積もります。", "Ước lượng bằng story point."],
+      ["ユーザーストーリー", "ユーザーストーリー", "user story", "kata", "ユーザーストーリーを書きました。", "Tôi đã viết user story."],
+    ],
+  },
+  {
+    tag: "scrum",
+    items: [
+      ["スプリント", "スプリント", "sprint", "kata", "今回のスプリントは二週間です。", "Sprint lần này kéo dài hai tuần."],
+      ["朝会", "あさかい", "họp buổi sáng (daily)", "n", "毎日朝会で進捗を共有します。", "Hằng ngày chia sẻ tiến độ trong họp sáng."],
+      ["バックログ", "バックログ", "backlog", "kata", "プロダクトバックログを整理します。", "Sắp xếp product backlog."],
+      ["進捗", "しんちょく", "tiến độ", "n", "進捗はいかがですか。", "Tiến độ thế nào rồi?"],
+      ["完了条件", "かんりょうじょうけん", "điều kiện hoàn thành (DoD)", "n", "完了条件を満たしていません。", "Chưa thỏa mãn điều kiện hoàn thành."],
+      ["障害", "しょうがい", "trở ngại; sự cố", "n", "作業の障害になっていることはありますか。", "Có trở ngại nào trong công việc không?"],
+    ],
+  },
+  {
+    tag: "testing",
+    items: [
+      ["単体テスト", "たんたいテスト", "kiểm thử đơn vị", "n", "単体テストを書いてください。", "Hãy viết unit test."],
+      ["結合テスト", "けつごうテスト", "kiểm thử tích hợp", "n", "来週から結合テストを開始します。", "Từ tuần sau bắt đầu kiểm thử tích hợp."],
+      ["総合テスト", "そうごうテスト", "kiểm thử hệ thống", "n", "総合テストで問題が見つかった。", "Đã phát hiện vấn đề trong kiểm thử hệ thống."],
+      ["受け入れテスト", "うけいれテスト", "kiểm thử chấp nhận (UAT)", "n", "お客様の受け入れテストが完了しました。", "Khách hàng đã hoàn thành UAT."],
+      ["テストケース", "テストケース", "test case", "kata", "テストケースを作成します。", "Tạo test case."],
+      ["再現", "さいげん", "tái hiện (lỗi)", "vs", "この不具合は再現できません。", "Lỗi này không tái hiện được."],
+      ["期待値", "きたいち", "giá trị mong đợi", "n", "結果が期待値と異なります。", "Kết quả khác với giá trị mong đợi."],
+      ["回帰テスト", "かいきテスト", "kiểm thử hồi quy", "n", "修正後に回帰テストを行います。", "Sau khi sửa sẽ chạy kiểm thử hồi quy."],
+      ["網羅率", "もうらりつ", "độ bao phủ (coverage)", "n", "テストの網羅率を上げる。", "Tăng độ bao phủ của test."],
+    ],
+  },
+  {
+    tag: "design-docs",
+    items: [
+      ["要件定義", "ようけんていぎ", "định nghĩa yêu cầu", "n", "要件定義書を作成します。", "Tạo tài liệu định nghĩa yêu cầu."],
+      ["基本設計", "きほんせっけい", "thiết kế cơ bản", "n", "基本設計のレビューを行います。", "Tiến hành review thiết kế cơ bản."],
+      ["詳細設計", "しょうさいせっけい", "thiết kế chi tiết", "n", "詳細設計書に従って実装する。", "Triển khai theo tài liệu thiết kế chi tiết."],
+      ["画面設計", "がめんせっけい", "thiết kế màn hình", "n", "画面設計に変更がありました。", "Có thay đổi trong thiết kế màn hình."],
+      ["項目", "こうもく", "mục, trường (field)", "n", "入力項目を追加します。", "Thêm trường nhập liệu."],
+      ["必須", "ひっす", "bắt buộc", "n", "メールアドレスは必須項目です。", "Địa chỉ email là trường bắt buộc."],
+      ["改訂履歴", "かいていりれき", "lịch sử sửa đổi", "n", "改訂履歴を更新してください。", "Hãy cập nhật lịch sử sửa đổi."],
+      ["成果物", "せいかぶつ", "sản phẩm bàn giao", "n", "成果物を納品します。", "Bàn giao sản phẩm."],
+    ],
+  },
+  {
+    tag: "architecture",
+    items: [
+      ["構成", "こうせい", "cấu trúc, cấu hình", "n", "システム構成図を作成する。", "Tạo sơ đồ cấu trúc hệ thống."],
+      ["拡張性", "かくちょうせい", "khả năng mở rộng", "n", "拡張性を考慮した設計にする。", "Thiết kế có xét đến khả năng mở rộng."],
+      ["可用性", "かようせい", "tính sẵn sàng (availability)", "n", "可用性99.9%を目標とする。", "Mục tiêu tính sẵn sàng 99,9%."],
+      ["冗長化", "じょうちょうか", "dự phòng (redundancy)", "vs", "サーバーを冗長化する。", "Thiết lập dự phòng cho máy chủ."],
+      ["疎結合", "そけつごう", "liên kết lỏng (loose coupling)", "n", "サービス間は疎結合にする。", "Giữ các service liên kết lỏng với nhau."],
+      ["負荷", "ふか", "tải", "n", "アクセスが集中して負荷が高い。", "Truy cập tập trung nên tải cao."],
+      ["性能", "せいのう", "hiệu năng", "n", "性能テストを実施します。", "Tiến hành kiểm thử hiệu năng."],
+    ],
+  },
+  {
+    tag: "infrastructure",
+    items: [
+      ["本番環境", "ほんばんかんきょう", "môi trường production", "n", "本番環境へのリリースは金曜日です。", "Phát hành lên production vào thứ Sáu."],
+      ["検証環境", "けんしょうかんきょう", "môi trường staging/kiểm thử", "n", "まず検証環境で確認します。", "Trước tiên kiểm tra trên môi trường staging."],
+      ["構築", "こうちく", "xây dựng (hệ thống)", "vs", "サーバーを構築しました。", "Đã xây dựng máy chủ."],
+      ["監視", "かんし", "giám sát", "vs", "サーバーを二十四時間監視しています。", "Giám sát máy chủ 24 giờ."],
+      ["障害対応", "しょうがいたいおう", "xử lý sự cố", "n", "夜間に障害対応をしました。", "Đã xử lý sự cố vào ban đêm."],
+      ["バックアップ", "バックアップ", "sao lưu", "kata", "毎日バックアップを取っています。", "Sao lưu hằng ngày."],
+      ["復旧", "ふっきゅう", "khôi phục", "vs", "システムは三十分後に復旧しました。", "Hệ thống đã khôi phục sau 30 phút."],
+      ["リリース", "リリース", "phát hành", "kata", "リリース手順書を確認してください。", "Hãy kiểm tra tài liệu quy trình release."],
+    ],
+  },
+  {
+    tag: "cloud",
+    items: [
+      ["クラウド", "クラウド", "điện toán đám mây", "kata", "オンプレからクラウドへ移行します。", "Chuyển từ on-premise lên cloud."],
+      ["移行", "いこう", "chuyển đổi, migration", "vs", "データ移行は週末に行います。", "Di chuyển dữ liệu vào cuối tuần."],
+      ["従量課金", "じゅうりょうかきん", "tính phí theo lượng dùng", "n", "クラウドは従量課金が一般的です。", "Cloud thường tính phí theo lượng dùng."],
+      ["自動スケーリング", "じどうスケーリング", "tự động mở rộng", "n", "自動スケーリングを設定しました。", "Đã thiết lập auto scaling."],
+      ["コンテナ", "コンテナ", "container", "kata", "アプリをコンテナ化する。", "Container hóa ứng dụng."],
+      ["運用", "うんよう", "vận hành", "vs", "運用コストを下げたい。", "Muốn giảm chi phí vận hành."],
+    ],
+  },
+  {
+    tag: "api",
+    items: [
+      ["連携", "れんけい", "liên kết, tích hợp", "vs", "外部システムとAPI連携します。", "Tích hợp API với hệ thống bên ngoài."],
+      ["呼び出す", "よびだす", "gọi (hàm/API)", "v5", "このAPIを呼び出してください。", "Hãy gọi API này."],
+      ["引数", "ひきすう", "tham số (argument)", "n", "引数にユーザーIDを渡します。", "Truyền user ID vào tham số."],
+      ["戻り値", "もどりち", "giá trị trả về", "n", "戻り値はJSON形式です。", "Giá trị trả về ở định dạng JSON."],
+      ["認証", "にんしょう", "xác thực", "vs", "API呼び出しには認証が必要です。", "Cần xác thực khi gọi API."],
+      ["仕様書", "しようしょ", "tài liệu đặc tả", "n", "API仕様書を共有します。", "Chia sẻ tài liệu đặc tả API."],
+      ["タイムアウト", "タイムアウト", "hết thời gian chờ", "kata", "リクエストがタイムアウトしました。", "Request đã bị timeout."],
+    ],
+  },
+  {
+    tag: "security",
+    items: [
+      ["脆弱性", "ぜいじゃくせい", "lỗ hổng bảo mật", "n", "脆弱性診断を実施します。", "Tiến hành kiểm tra lỗ hổng."],
+      ["暗号化", "あんごうか", "mã hóa", "vs", "通信を暗号化する。", "Mã hóa đường truyền."],
+      ["権限", "けんげん", "quyền hạn", "n", "管理者権限が必要です。", "Cần quyền quản trị viên."],
+      ["不正アクセス", "ふせいアクセス", "truy cập trái phép", "n", "不正アクセスを検知しました。", "Đã phát hiện truy cập trái phép."],
+      ["情報漏洩", "じょうほうろうえい", "rò rỉ thông tin", "n", "情報漏洩を防ぐ対策が必要だ。", "Cần biện pháp ngăn rò rỉ thông tin."],
+      ["改ざん", "かいざん", "giả mạo, sửa trái phép", "vs", "データの改ざんを防ぐ。", "Ngăn chặn việc sửa đổi dữ liệu trái phép."],
+      ["多要素認証", "たようそにんしょう", "xác thực đa yếu tố", "n", "多要素認証を導入しました。", "Đã áp dụng xác thực đa yếu tố."],
+    ],
+  },
+];

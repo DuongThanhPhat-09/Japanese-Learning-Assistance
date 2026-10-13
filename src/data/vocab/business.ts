@@ -1,0 +1,100 @@
+import type { VocabGroup } from "./types";
+
+/** Tags match ModuleTopic.vocabTag in data/modules/business.ts */
+export const BUSINESS: VocabGroup[] = [
+  {
+    tag: "meetings",
+    items: [
+      ["議題", "ぎだい", "chủ đề nghị sự", "n", "本日の議題は三つです。", "Hôm nay có ba chủ đề nghị sự."],
+      ["議事録", "ぎじろく", "biên bản cuộc họp", "n", "議事録を共有いたします。", "Tôi xin chia sẻ biên bản cuộc họp."],
+      ["司会", "しかい", "chủ trì, dẫn chương trình", "vs", "本日の司会を務めます佐藤です。", "Tôi là Sato, chủ trì buổi hôm nay."],
+      ["出席者", "しゅっせきしゃ", "người tham dự", "n", "出席者は十名です。", "Có 10 người tham dự."],
+      ["決定事項", "けっていじこう", "các nội dung đã quyết định", "n", "決定事項を確認します。", "Xác nhận các nội dung đã quyết định."],
+      ["持ち帰る", "もちかえる", "mang về (để xem xét)", "v5", "その件は一度持ち帰って検討します。", "Việc đó tôi xin mang về xem xét."],
+      ["合意", "ごうい", "thống nhất, đồng thuận", "vs", "両社で合意に至りました。", "Hai công ty đã đạt được đồng thuận."],
+      ["異議", "いぎ", "phản đối", "n", "異議はございませんか。", "Có ai phản đối không ạ?"],
+      ["補足", "ほそく", "bổ sung", "vs", "一点補足させてください。", "Cho phép tôi bổ sung một điểm."],
+      ["共有", "きょうゆう", "chia sẻ", "vs", "画面を共有します。", "Tôi sẽ chia sẻ màn hình."],
+    ],
+  },
+  {
+    tag: "presentations",
+    items: [
+      ["発表者", "はっぴょうしゃ", "người thuyết trình", "n", "次の発表者は田中さんです。", "Người thuyết trình tiếp theo là anh Tanaka."],
+      ["提案", "ていあん", "đề xuất", "vs", "新しいサービスを提案いたします。", "Tôi xin đề xuất một dịch vụ mới."],
+      ["要点", "ようてん", "điểm chính", "n", "要点を三つにまとめました。", "Tôi đã tóm tắt thành ba điểm chính."],
+      ["根拠", "こんきょ", "căn cứ", "n", "この数字が根拠となります。", "Con số này là căn cứ."],
+      ["質疑応答", "しつぎおうとう", "hỏi đáp", "n", "最後に質疑応答の時間を設けます。", "Cuối cùng sẽ có thời gian hỏi đáp."],
+      ["図表", "ずひょう", "biểu đồ, bảng biểu", "n", "こちらの図表をご覧ください。", "Xin hãy xem biểu đồ này."],
+      ["売上", "うりあげ", "doanh thu", "n", "売上は前年比120%です。", "Doanh thu đạt 120% so với năm trước."],
+      ["導入事例", "どうにゅうじれい", "ví dụ triển khai thực tế", "n", "他社の導入事例をご紹介します。", "Tôi xin giới thiệu ví dụ triển khai tại công ty khác."],
+    ],
+  },
+  {
+    tag: "calls",
+    items: [
+      ["折り返し", "おりかえし", "gọi lại", "n", "折り返しお電話いたします。", "Tôi sẽ gọi lại cho quý khách."],
+      ["伝言", "でんごん", "lời nhắn", "n", "伝言をお願いできますか。", "Tôi có thể nhờ nhắn lại được không?"],
+      ["席を外す", "せきをはずす", "rời khỏi chỗ", "exp", "あいにく田中は席を外しております。", "Rất tiếc anh Tanaka đang không có ở chỗ."],
+      ["外出中", "がいしゅつちゅう", "đang ra ngoài", "n", "部長はただいま外出中です。", "Trưởng phòng hiện đang ra ngoài."],
+      ["担当者", "たんとうしゃ", "người phụ trách", "n", "担当者におつなぎします。", "Tôi xin nối máy đến người phụ trách."],
+      ["内線", "ないせん", "số nội bộ", "n", "内線番号は205です。", "Số nội bộ là 205."],
+      ["恐れ入りますが", "おそれいりますが", "xin lỗi đã làm phiền, nhưng…", "exp", "恐れ入りますが、お名前をお伺いできますか。", "Xin lỗi, cho tôi hỏi quý danh được không ạ?"],
+    ],
+  },
+  {
+    tag: "scheduling",
+    items: [
+      ["日程", "にってい", "lịch trình", "n", "日程を調整させてください。", "Cho phép tôi điều chỉnh lịch trình."],
+      ["都合", "つごう", "sự thuận tiện", "n", "ご都合はいかがでしょうか。", "Lịch của quý vị thế nào ạ?"],
+      ["候補日", "こうほび", "ngày dự kiến", "n", "候補日をいくつかお送りします。", "Tôi gửi một vài ngày dự kiến."],
+      ["延期", "えんき", "hoãn lại", "vs", "会議を来週に延期します。", "Hoãn cuộc họp sang tuần sau."],
+      ["前倒し", "まえだおし", "đẩy sớm lên", "vs", "納期を前倒しすることは可能ですか。", "Có thể đẩy sớm thời hạn giao hàng không?"],
+      ["打ち合わせ", "うちあわせ", "buổi trao đổi, họp bàn", "vs", "明日の打ち合わせは十時からです。", "Buổi họp ngày mai bắt đầu từ 10 giờ."],
+      ["空き", "あき", "chỗ trống, thời gian rảnh", "n", "水曜日の午後は空きがあります。", "Chiều thứ Tư tôi có thời gian trống."],
+    ],
+  },
+  {
+    tag: "negotiation",
+    items: [
+      ["見積もり", "みつもり", "báo giá", "n", "見積もりをお送りいたします。", "Tôi xin gửi báo giá."],
+      ["値引き", "ねびき", "giảm giá", "vs", "これ以上の値引きは難しいです。", "Giảm giá thêm nữa thì khó."],
+      ["条件", "じょうけん", "điều kiện", "n", "支払い条件を確認させてください。", "Cho tôi xác nhận điều kiện thanh toán."],
+      ["譲歩", "じょうほ", "nhượng bộ", "vs", "双方が譲歩する必要があります。", "Cả hai bên cần nhượng bộ."],
+      ["納期", "のうき", "thời hạn giao hàng", "n", "納期は三月末です。", "Hạn giao hàng là cuối tháng Ba."],
+      ["予算", "よさん", "ngân sách", "n", "予算内に収める必要があります。", "Cần giữ trong phạm vi ngân sách."],
+      ["妥協案", "だきょうあん", "phương án thỏa hiệp", "n", "妥協案を提示いたします。", "Tôi xin đưa ra phương án thỏa hiệp."],
+      ["前向き", "まえむき", "tích cực", "adj-na", "前向きに検討いたします。", "Chúng tôi sẽ xem xét theo hướng tích cực."],
+    ],
+  },
+  {
+    tag: "email",
+    items: [
+      ["件名", "けんめい", "tiêu đề email", "n", "件名に日付を入れてください。", "Hãy ghi ngày vào tiêu đề."],
+      ["添付", "てんぷ", "đính kèm", "vs", "資料を添付いたしました。", "Tôi đã đính kèm tài liệu."],
+      ["宛先", "あてさき", "người nhận", "n", "宛先を間違えないように注意する。", "Chú ý đừng nhầm người nhận."],
+      ["お世話になっております", "おせわになっております", "cảm ơn quý vị đã luôn giúp đỡ (mở đầu email)", "exp", "いつもお世話になっております。", "Cảm ơn quý vị đã luôn giúp đỡ."],
+      ["ご査収ください", "ごさしゅうください", "vui lòng kiểm tra và nhận", "exp", "請求書を添付しますので、ご査収ください。", "Tôi đính kèm hóa đơn, xin vui lòng kiểm tra."],
+      ["取り急ぎ", "とりいそぎ", "trước mắt (gửi vội)", "adv", "取り急ぎご報告まで。", "Trước mắt xin báo cáo như vậy."],
+      ["ご確認のほど", "ごかくにんのほど", "mong quý vị xác nhận", "exp", "ご確認のほどよろしくお願いいたします。", "Rất mong quý vị xác nhận giúp."],
+      ["返信", "へんしん", "trả lời (email)", "vs", "ご返信をお待ちしております。", "Tôi đang chờ phản hồi của quý vị."],
+    ],
+  },
+  {
+    tag: "keigo",
+    items: [
+      ["いらっしゃる", "いらっしゃる", "đi / đến / ở (tôn kính)", "v5", "社長は会議室にいらっしゃいます。", "Giám đốc đang ở phòng họp."],
+      ["おっしゃる", "おっしゃる", "nói (tôn kính)", "v5", "部長がおっしゃったとおりです。", "Đúng như trưởng phòng đã nói."],
+      ["召し上がる", "めしあがる", "ăn, uống (tôn kính)", "v5", "どうぞ召し上がってください。", "Xin mời dùng."],
+      ["ご覧になる", "ごらんになる", "xem (tôn kính)", "v5", "資料をご覧になりましたか。", "Ngài đã xem tài liệu chưa ạ?"],
+      ["参る", "まいる", "đi / đến (khiêm nhường)", "v5", "明日御社に参ります。", "Ngày mai tôi sẽ đến quý công ty."],
+      ["申す", "もうす", "nói (khiêm nhường)", "v5", "グエンと申します。", "Tôi tên là Nguyễn."],
+      ["伺う", "うかがう", "hỏi / thăm (khiêm nhường)", "v5", "明日の三時に伺います。", "Tôi sẽ đến thăm lúc 3 giờ ngày mai."],
+      ["拝見する", "はいけんする", "xem (khiêm nhường)", "vs", "資料を拝見しました。", "Tôi đã xem tài liệu."],
+      ["いただく", "いただく", "nhận / ăn (khiêm nhường)", "v5", "ご意見をいただきありがとうございます。", "Cảm ơn quý vị đã cho ý kiến."],
+      ["存じる", "ぞんじる", "biết / nghĩ (khiêm nhường)", "v1", "その件は存じております。", "Tôi biết việc đó."],
+      ["御社", "おんしゃ", "quý công ty (khi nói)", "n", "御社の製品に興味があります。", "Tôi quan tâm đến sản phẩm của quý công ty."],
+      ["弊社", "へいしゃ", "công ty chúng tôi (khiêm nhường)", "n", "弊社の新サービスをご紹介します。", "Xin giới thiệu dịch vụ mới của công ty chúng tôi."],
+    ],
+  },
+];
