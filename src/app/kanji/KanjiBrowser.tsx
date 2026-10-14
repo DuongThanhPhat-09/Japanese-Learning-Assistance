@@ -14,7 +14,8 @@ import { useAppStore } from "@/store/useAppStore";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, Input, Select } from "@/components/ui/primitives";
 import { AddToSrsButton, EmptyState, LevelBadge, PageHeader, SpeakButton } from "@/components/learning/common";
-import { StrokeOrder, WritingCanvas } from "@/components/learning/Writing";
+import { StrokeOrder } from "@/components/learning/Writing";
+import { StrokeTracer } from "@/components/learning/StrokeTracer";
 import { toast } from "sonner";
 
 export function KanjiBrowser() {
@@ -181,7 +182,7 @@ function KanjiDetail({ k }: { k: Kanji }) {
             </div>
             <div className="flex flex-col items-center gap-1">
               <p className="text-sm font-semibold">Luyện viết</p>
-              <WritingCanvas guide={k.char} size={200} />
+              <StrokeTracer char={k.char} size={260} />
             </div>
           </CardContent>
         </Card>

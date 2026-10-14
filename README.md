@@ -19,7 +19,7 @@ Stack: **Next.js 15 (static export) · TypeScript · Tailwind CSS 4 · shadcn-st
 | **Roadmap (Learn tab)** | 12 stages (Beginner → Hiragana → Katakana → N5 → N4 → N3 → N2 → N1 → Business → IT → BrSE → Native) drawn as a winding path: completed stages get a crown, the current stage is highlighted, later stages are locked but can be previewed. Every stage page has vocabulary, grammar, kanji (or kana), listening, reading, a mixed quiz, a stage-filtered SRS review and its **level-up gates**. Progress is measured by retention (≥ 7-day memory), comprehension scores and mock exams, never by items seen. |
 | **Profile & statistics** | Level/XP, streak, study time, accuracy, recent badges, a 7-day XP chart, plus (collapsed for beginners) knowledge learned, a 30-day study-minutes chart, an 18-week activity heatmap, the SRS state bar and the 7-day review forecast. |
 | **SRS** | Four states (New → Learning → Review → Mastered). Intervals are 1 · 3 · 7 · 14 · 30 · 60 · 120 days, with Again/Hard/Good/Easy grading (failed cards come back in 10 minutes). The Review tab offers one-click sessions for cards due, weak vocabulary, weak grammar, weak kanji, recently missed questions and leech repair; custom sessions (due-only, new, weak, random or all, filtered by card type) are one tap away. Keyboard shortcuts are supported. |
-| **Hiragana / Katakana** | Lessons by row; dakuten, yōon and extended katakana (ファ, ティ, ウェ…). Each character has a stroke count, a stroke-order animation (KanjiVG, optional), offline pronunciation, a Vietnamese memory hint and a writing canvas. Also includes a reading test, a self-graded writing test, romaji typing (Hepburn and Kunrei accepted), word reading drills, and a katakana loanword list. |
+| **Hiragana / Katakana** | Lessons by row; dakuten, yōon and extended katakana (ファ, ティ, ウェ…). Each character has a stroke count, a stroke-order animation (KanjiVG, bundled), offline pronunciation, a Vietnamese memory hint and **guided stroke tracing**: the next stroke is highlighted with its start point and direction, and every stroke is checked for shape, direction and order ("Tô theo mẫu", then "Tự viết" from memory with hints after two misses). Kanji have the same tracer. Also includes a reading test, a self-graded writing test, romaji typing (Hepburn and Kunrei accepted), word reading drills, and a katakana loanword list. |
 | **Vocabulary** | 827 entries. Each has kanji, kana, romaji (auto-generated), Vietnamese meaning, part of speech, an example sentence with translation, a difficulty level and tags. Supports search across kanji, kana, romaji and meaning; filters by level, tag, part of speech, SRS status and favorites; and CSV export. |
 | **Grammar** | 95 points (N5–N1, Keigo, IT-specification patterns, BrSE reporting patterns, native-level written style). Each has the pattern, meaning, formation, a Vietnamese explanation, usage notes, common mistakes, examples, a comparison with similar grammar and an exercise. |
 | **Kanji** | 234 kanji (N5–N1). Each has its **Hán Việt** reading, meaning, on/kun readings, stroke count, radicals, example words, an example sentence, a memory hint, a stroke-order view and writing practice. Search by character, Hán Việt, reading, meaning or radical; filter by level and stroke count. |
@@ -61,7 +61,7 @@ npm start            # zero-dependency static server → http://localhost:3000 (
 
 | Command | Effect |
 |---|---|
-| `npm run fetch:strokes` | Downloads KanjiVG stroke-order SVGs for every kana/kanji in the app into `public/strokes/`. After that, stroke-order animation works offline. KanjiVG is © Ulrich Apel, CC BY-SA 3.0. |
+| `npm run fetch:strokes` | Stroke data for every kana/kanji in the app already ships in `public/strokes/` (KanjiVG, © Ulrich Apel, CC BY-SA 3.0, https://kanjivg.tagaini.net; each file keeps its licence header). Re-run after adding kanji. Behind a TLS-inspecting proxy use `node --use-system-ca scripts/fetch-kanjivg.mjs`. |
 | Audio files | Put MP3s named after listening exercise ids into `public/audio/listening/` (see the README in that folder). |
 
 ### Japanese voice for pronunciation
@@ -85,9 +85,9 @@ Open **Hồ sơ → Cài đặt & dữ liệu → Nạp dữ liệu demo** to lo
 | `npm run dev` | Next.js dev server |
 | `npm run build` | Static export to `out/` |
 | `npm start` | Serve `out/` offline (`scripts/serve.mjs`) |
-| `npm test` | Vitest unit tests (87 tests) |
+| `npm test` | Vitest unit tests (98 tests) |
 | `npm run typecheck` | `tsc --noEmit` |
-| `npm run fetch:strokes` | Download KanjiVG stroke data (optional) |
+| `npm run fetch:strokes` | Download KanjiVG stroke data for newly added characters |
 
 ---
 
@@ -96,7 +96,7 @@ Open **Hồ sơ → Cài đặt & dữ liệu → Nạp dữ liệu demo** to lo
 ```
 ├── public/
 │   ├── audio/listening/        # optional MP3s (placeholders documented)
-│   ├── strokes/                # optional KanjiVG SVGs (npm run fetch:strokes)
+│   ├── strokes/                # KanjiVG stroke SVGs (CC BY-SA 3.0), used by stroke order + tracing
 │   ├── sw.js                   # cache-first service worker
 │   ├── manifest.webmanifest
 │   └── icon.svg
@@ -179,7 +179,7 @@ The full JLPT inventory is roughly 10,000 words and 2,000 kanji, so the shipped 
 1. **Content expansion (highest value):** complete JLPT N5/N4 vocabulary and kanji lists, then N3–N1. Add more graded reading passages and listening scripts per level.
 2. **Recorded audio:** record or license native-speaker MP3s for every dialog, word and example.
 3. **IndexedDB storage adapter:** swap `createJSONStorage(() => localStorage)` for an IndexedDB adapter once user data approaches the ~5 MB localStorage limit (large CSV imports).
-4. **Handwriting recognition:** compare canvas strokes with KanjiVG paths (stroke count, direction and order scoring).
+4. ~~**Handwriting recognition:** compare canvas strokes with KanjiVG paths (stroke count, direction and order scoring).~~ Done: guided stroke tracing (`components/learning/StrokeTracer.tsx`, `lib/strokes.ts`).
 5. **Pitch-accent data** for vocabulary, with visual accent marks.
 6. **E2E tests** (Playwright) for quiz, review and exam flows.
 

@@ -5,8 +5,8 @@ import { Eraser, Eye, EyeOff, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 /**
- * Stroke-order viewer. If a KanjiVG SVG exists at /strokes/{codepoint}.svg
- * (download once with `npm run fetch:strokes`) it is animated stroke by stroke;
+ * Stroke-order viewer. KanjiVG SVGs ship in /strokes/{codepoint}.svg (refresh
+ * with `npm run fetch:strokes`) and are animated stroke by stroke;
  * otherwise a large reference glyph is shown with the stroke count.
  */
 export function StrokeOrder({ char, strokes }: { char: string; strokes?: number }) {
@@ -51,7 +51,7 @@ export function StrokeOrder({ char, strokes }: { char: string; strokes?: number 
           </Button>
         )}
       </div>
-      {!svg && <p className="max-w-40 text-center text-[11px] text-muted-foreground">Hoạt ảnh thứ tự nét: chạy <code>npm run fetch:strokes</code> một lần.</p>}
+      {!svg && <p className="max-w-40 text-center text-[11px] text-muted-foreground">Chưa có dữ liệu thứ tự nét cho chữ này.</p>}
     </div>
   );
 }

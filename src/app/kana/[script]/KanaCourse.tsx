@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Card, Dialog, DialogContent, Progress, Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/primitives";
 import { PageHeader, SpeakButton } from "@/components/learning/common";
 import { StrokeOrder, WritingCanvas } from "@/components/learning/Writing";
+import { StrokeTracer } from "@/components/learning/StrokeTracer";
 import { QuizRunner } from "@/components/learning/QuizRunner";
 import { toast } from "sonner";
 
@@ -139,7 +140,7 @@ function KanaDetail({ k }: { k: Kana }) {
       </div>
       <div className="flex flex-col items-center gap-2">
         <p className="text-sm font-semibold">Luyện viết</p>
-        <WritingCanvas guide={k.char} size={220} />
+        <StrokeTracer char={k.char} size={260} />
       </div>
     </div>
   );
