@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ChevronLeft, Flame, Moon, Sun } from "lucide-react";
 import { Toaster } from "sonner";
+import { MotionConfig, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useHydrated } from "@/hooks/useHydrated";
 import { useAchievementWatcher, useProgressCelebrations, useStudyTimer } from "@/hooks/useBackground";
@@ -100,12 +101,13 @@ function SideRail() {
             key={t.id}
             href={t.href}
             className={cn(
-              "flex items-center gap-3.5 rounded-2xl px-4 py-3 text-[15px] font-bold transition-colors",
-              active === t.id ? "bg-primary/12 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground",
+              "relative flex items-center gap-3.5 rounded-2xl px-4 py-3 text-[15px] font-bold transition-colors",
+              active === t.id ? "text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground",
             )}
           >
-            <t.icon className="size-6" strokeWidth={active === t.id ? 2.4 : 2} />
-            {t.label}
+            {active === t.id && <motion.span layoutId="rail-pill" className="absolute inset-0 rounded-2xl bg-primary/12" transition={{ type: "spring", stiffness: 500, damping: 38 }} />}
+            <t.icon className="relative size-6" strokeWidth={active === t.id ? 2.4 : 2} />
+            <span className="relative">{t.label}</span>
           </Link>
         ))}
       </nav>
@@ -127,8 +129,9 @@ function BottomTabs() {
           const on = active === t.id;
           return (
             <Link key={t.id} href={t.href} className={cn("flex flex-col items-center justify-center gap-1 text-[11px] font-bold", on ? "text-primary" : "text-muted-foreground")}>
-              <span className={cn("grid h-8 w-14 place-items-center rounded-full transition-colors", on && "bg-primary/12")}>
-                <t.icon className="size-[22px]" strokeWidth={on ? 2.4 : 2} />
+              <span className="relative grid h-8 w-14 place-items-center">
+                {on && <motion.span layoutId="tab-pill" className="absolute inset-0 rounded-full bg-primary/12" transition={{ type: "spring", stiffness: 500, damping: 38 }} />}
+                <t.icon className="relative size-[22px]" strokeWidth={on ? 2.4 : 2} />
               </span>
               {t.label}
             </Link>
@@ -178,6 +181,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="flex min-h-screen">
       <BackgroundServices />
       <SideRail />
@@ -189,5 +193,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <CelebrationHost />
       <Toaster richColors position="top-center" />
     </div>
+    </MotionConfig>
   );
 }

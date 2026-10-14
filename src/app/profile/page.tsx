@@ -16,6 +16,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, Progress, Sw
 import { ActivityHeatmap, AreaSeries, BarSeries, SrsStateBar } from "@/components/charts/Charts";
 import { PROFILE_MENU } from "@/components/layout/nav";
 import { useTheme } from "@/components/layout/AppShell";
+import { NumberTicker } from "@/components/magicui/number-ticker";
+import { Reveal, RevealItem } from "@/components/motion/Reveal";
 
 export default function ProfilePage() {
   const stats = useStats();
@@ -32,9 +34,9 @@ export default function ProfilePage() {
   );
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-8">
+    <Reveal className="mx-auto flex max-w-2xl flex-col gap-8">
       {/* Identity + level */}
-      <header className="flex items-center gap-5 pt-2">
+      <RevealItem className="flex items-center gap-5 pt-2">
         <span className="bg-hero grid size-20 shrink-0 place-items-center rounded-full text-3xl font-black text-white shadow-lift">{name.trim().charAt(0).toUpperCase() || "?"}</span>
         <div className="flex min-w-0 flex-1 flex-col gap-1.5">
           <h1 className="truncate text-[26px] font-extrabold leading-tight tracking-tight">{name}</h1>
@@ -48,18 +50,18 @@ export default function ProfilePage() {
             </span>
           </div>
         </div>
-      </header>
+      </RevealItem>
 
       {/* Headline numbers */}
-      <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <Metric icon={<Flame />} tone="text-streak bg-streak/12" value={`${stats.streak}`} unit="ngày" label={`Chuỗi · kỷ lục ${stats.longestStreak}`} />
-        <Metric icon={<Zap />} tone="text-xp bg-xp/15" value={stats.xp.toLocaleString("vi-VN")} unit="XP" label="Tổng kinh nghiệm" />
+      <RevealItem className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <Metric icon={<Flame />} tone="text-streak bg-streak/12" value={<NumberTicker value={stats.streak} />} unit="ngày" label={`Chuỗi · kỷ lục ${stats.longestStreak}`} />
+        <Metric icon={<Zap />} tone="text-xp bg-xp/15" value={<NumberTicker value={stats.xp} />} unit="XP" label="Tổng kinh nghiệm" />
         <Metric icon={<Clock />} tone="text-info bg-info/12" {...studyTime(stats.totalMinutes)} label="Thời gian học" />
         <Metric icon={<Target />} tone="text-primary bg-primary/12" value={`${stats.accuracy}%`} label="Độ chính xác" />
-      </section>
+      </RevealItem>
 
       {/* Achievements preview */}
-      <section className="flex flex-col gap-3">
+      <RevealItem className="flex flex-col gap-3">
         <SectionTitle title="Thành tích" href="/achievements/" action={`${Object.keys(unlocked).length}/${ACHIEVEMENTS.length} · Xem tất cả`} />
         <Card className="p-5">
           {badges.length ? (
@@ -75,7 +77,7 @@ export default function ProfilePage() {
             <p className="text-center text-[15px] text-muted-foreground">Hoàn thành bài học đầu tiên để nhận huy hiệu 🌱</p>
           )}
         </Card>
-      </section>
+      </RevealItem>
 
       <WeeklyChart />
       <AdvancedStats defaultOpen={!beginner} />
@@ -94,7 +96,7 @@ export default function ProfilePage() {
           <ThemeRow />
         </Card>
       </section>
-    </div>
+    </Reveal>
   );
 }
 
@@ -103,7 +105,7 @@ function studyTime(minutes: number) {
   return minutes < 60 ? { value: `${minutes}`, unit: "phút" } : { value: (minutes / 60).toLocaleString("vi-VN", { maximumFractionDigits: 1 }), unit: "giờ" };
 }
 
-function Metric({ icon, tone, value, unit, label }: { icon: React.ReactNode; tone: string; value: string; unit?: string; label: string }) {
+function Metric({ icon, tone, value, unit, label }: { icon: React.ReactNode; tone: string; value: React.ReactNode; unit?: string; label: string }) {
   return (
     <Card className="flex flex-col gap-3 p-4">
       <span className={cn("grid size-9 place-items-center rounded-xl [&_svg]:size-[18px]", tone)}>{icon}</span>

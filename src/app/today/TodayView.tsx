@@ -28,6 +28,7 @@ import {
 import type { StudyBlock } from "@/lib/engine";
 import {
   INLINE_BLOCKS,
+  learnerTitle,
   LEECH_LAPSES,
   MODE_LABEL,
   PHASE_LABEL,
@@ -68,6 +69,7 @@ import { ReviewSession, SessionSummary } from "@/components/learning/ReviewSessi
 import { LearnSession } from "@/components/learning/LearnSession";
 import { SpeakingSession } from "@/components/learning/SpeakingSession";
 import { LeechRepair } from "@/components/learning/LeechRepair";
+import { OrientationLesson } from "@/components/learning/OrientationLesson";
 import { QuizRunner } from "@/components/learning/QuizRunner";
 
 const PHASE_STYLE: Record<BlockPhase, { label: string; dot: string; bar: string }> = {
@@ -188,7 +190,7 @@ function DailyPath({ autoStart, beginner }: { autoStart: boolean; beginner: bool
             {plan.blocks.findIndex((b) => b.id === active.id) + 1}/{plan.blocks.length}
           </span>
         </div>
-        <h1 className="font-jp text-2xl font-extrabold tracking-tight">{active.title}</h1>
+        <h1 className="font-jp text-2xl font-extrabold tracking-tight">{learnerTitle(active)}</h1>
         <BlockRunner key={active.id} block={active} onDone={() => finishBlock(active)} />
         {activeDone && (
           <div className="animate-rise fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-20 border-t border-hairline bg-background/90 backdrop-blur-xl lg:bottom-0 lg:left-60">
@@ -238,15 +240,13 @@ function DailyPath({ autoStart, beginner }: { autoStart: boolean; beginner: bool
             Học hôm nay · {stage.title}
             {pro ? ` + ${pro.title}` : ""}
           </p>
-          <h1 className="font-jp mt-3 text-2xl font-extrabold leading-snug sm:text-[28px]">{next?.title ?? "Buổi học hôm nay"}</h1>
+          <h1 className="font-jp mt-3 text-2xl font-extrabold leading-snug sm:text-[28px]">{next ? learnerTitle(next) : "Buổi học hôm nay"}</h1>
           <p className="mt-1.5 text-white/85">
-            ≈ {plan.minutes} phút · {doneCount}/{plan.blocks.length} phần đã xong
-            {!beginner && ` · ${MODE_LABEL[plan.mode]}`}
+            Khoảng {plan.minutes} phút · {doneCount}/{plan.blocks.length} phần đã xong
           </p>
-          <p className="mt-3 text-sm leading-relaxed text-white/75">{plan.headline}</p>
           <Progress value={(doneCount / Math.max(1, plan.blocks.length)) * 100} className="mt-5 h-2.5 bg-white/25" indicatorClassName="bg-white" />
           {next && (
-            <Button size="lg" className="mt-6 w-full bg-white text-emerald-700 shadow-[0_4px_0_0_rgba(0,0,0,0.15)] hover:bg-white/95 sm:w-auto sm:min-w-64" onClick={() => open(next)}>
+            <Button size="lg" className="shine mt-6 h-16 w-full rounded-2xl bg-white text-lg text-emerald-700 [--shine:oklch(0.62_0.17_150/0.18)] shadow-[0_4px_0_0_rgba(0,0,0,0.15)] hover:bg-white/95 sm:w-auto sm:min-w-64" onClick={() => open(next)}>
               <Play className="fill-current" /> {doneCount ? "Tiếp tục" : "Bắt đầu"}
             </Button>
           )}
@@ -272,7 +272,7 @@ function DailyPath({ autoStart, beginner }: { autoStart: boolean; beginner: bool
                     {isDone ? <Check className="size-5" strokeWidth={3} /> : <Icon className="size-5" />}
                   </span>
                   <div className="min-w-0">
-                    <p className={cn("font-jp font-bold leading-snug", isDone && "text-muted-foreground")}>{b.title}</p>
+                    <p className={cn("font-jp font-bold leading-snug", isDone && "text-muted-foreground")}>{learnerTitle(b)}</p>
                     <p className="line-clamp-1 text-sm text-muted-foreground">
                       {i + 1}. {b.minutes} phút · {b.reason}
                     </p>
@@ -307,6 +307,9 @@ function DailyPath({ autoStart, beginner }: { autoStart: boolean; beginner: bool
           </summary>
           <Card className="mt-3">
             <CardHeader>
+              <p className="text-sm font-semibold">
+                {MODE_LABEL[plan.mode]} · {plan.headline}
+              </p>
               <CardDescription>
                 Thanh trên: kế hoạch hôm nay · thanh dưới: tỉ lệ khuyến nghị cho giai đoạn {PHASE_LABEL[plan.phase]} · {plan.due} thẻ đến hạn · {plan.newBudget} mục mới · tỉ lệ nhớ{" "}
                 {plan.retention === null ? "chưa đủ dữ liệu" : `${Math.round(plan.retention * 100)}%`}
@@ -392,6 +395,8 @@ function BlockRunner({ block, onDone }: { block: StudyBlock; onDone: () => void 
       );
     case "learn":
       return <LearnSession ids={block.items ?? []} onDone={onDone} />;
+    case "orientation":
+      return <OrientationLesson onDone={onDone} />;
     case "leech":
       return <LeechRepair cardIds={block.items ?? []} onDone={onDone} />;
     case "reflection":

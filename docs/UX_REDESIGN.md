@@ -281,3 +281,42 @@ Modals are **queued while a focus session is running** (review, quiz or lesson),
 | `weakCards`, `missedCards` | `lib/weak.ts` | pure, unit-tested selectors for the Review tab |
 | `stageStatus` | `lib/engine.ts` | done / current / available / locked for roadmap nodes |
 | Home, Learn, Review, Profile | `app/page.tsx`, `app/learn`, `app/review`, `app/profile` | the 4 tab roots |
+
+---
+
+# Round 2: "I want to start learning right now"
+
+Goal: a complete beginner who opens the app for the first time should feel invited, not measured. No new features or content were added.
+
+## 10. Audit of the round-1 UI
+
+Screens were reviewed at 390 px with an empty profile and with the 45-day demo profile.
+
+| # | Friction | Where | Why it hurts |
+|---|---|---|---|
+| R1 | **A first visit shows six empty meters**: `Cấp 1 · 0/100 XP`, a `0%` goal ring, `0 ngày` streak, `Đã ôn xong` with no cards, 7 empty week dots and an empty weekly bar | Home | The very first message is "you have nothing". Empty meters measure; they don't invite. |
+| R2 | **Four progress visuals on one screen**: level bar, plan bar, goal ring, weekly bar (plus week dots) | Home | Duplicate information; the eye can't tell which progress matters. |
+| R3 | **Backlog anxiety**: "Ôn 262 thẻ đến hạn" as the hero title, a red `99+` badge, "262 thẻ đến hạn" | Home, Today, Review | Counts read as debt. Red badges are notification alarms. Learners avoid what feels like debt. |
+| R4 | **Engine language in the hero**: "vượt khả năng ôn trong ngày… cho đến khi nợ về mức an toàn. Tỉ lệ nhớ 14 ngày: 85%" | Today | Technical and slightly scolding ("nợ" = debt). |
+| R5 | **Review asks the learner to diagnose themselves** (5 weak-spot categories + a custom builder) before offering a simple "I have 5 minutes" choice | Review | Decision fatigue; the natural question is time, not taxonomy. |
+| R6 | **Locked stages look dead**: grey nodes and fully grayscale section banners, with only "Hoàn thành X để mở khóa" | Learn | Locked content should create curiosity ("you'll be able to read the news"), not look disabled. |
+| R7 | **The current stage doesn't show progress on the path**; overall progress is the text "1/12" | Learn | Visible progress is the strongest motivator, and it was hidden in a panel. |
+| R8 | **Abrupt state changes**: panels, tabs and celebrations appear without motion continuity | everywhere | Feels like a web form rather than a game. |
+| R9 | **Generic greeting** "Chào buổi chiều, Học viên" | Home | Default placeholder name reads impersonal. |
+| R10 | The Today hero repeats the Home hero (same title, same bar, same button) | Home → Today | One more screen before learning starts. |
+| R11 | **The very first lesson opened the beginner stage page**: 9 tabs, "Đã gặp 0/43", "sẵn sàng 0%"; its Continue button looped back to the plan | first click | The first lesson felt like a syllabus, and the loop gave no way forward. Found while testing the first-run flow. |
+
+## 11. Round-2 decisions
+
+| Fixes | Change |
+|---|---|
+| R1, R9 | **First-run welcome** on Home: no meters at all. A friendly hero, a 3-step journey teaser (あ → ア → N5) and one huge "Bắt đầu học ngay" button. The greeting drops the placeholder name. |
+| R2 | Home = **welcome → current lesson (huge Continue) → today's mission → next level**. The weekly card and goal ring are gone; the daily goal lives inside the mission list, weekly charts live in Profile. |
+| R3 | Reviews are expressed **in minutes** ("≈ 6 phút ôn tập"), never as a backlog count, and with no red badge. The review block is titled "Ôn lại bài đã học". |
+| R4 | The engine headline and mode move into the "Chi tiết" disclosure (N4+ only). |
+| R5 | Review = **four one-click buttons**: Ôn nhanh (10 thẻ), 5 phút, 15 phút, Ôn hết. When nothing is due they become free practice of learned cards. Weak spots are secondary; the custom builder stays collapsed. |
+| R6 | Locked nodes keep a soft tint of their stage color and their panel shows **"Bạn sẽ làm được"** (the stage goals) plus a preview link. Section banners are dimmed, not grayscale. |
+| R7 | A **journey progress card** at the top of Learn, and a **progress ring around the current node** (stage readiness). |
+| R8 | **Framer Motion** for entrances (stagger), press feedback, the mobile tab indicator, panels and celebration springs; Magic-UI-style **NumberTicker** and **Shine** CTA. All motion respects `prefers-reduced-motion` (`MotionConfig reducedMotion="user"`). |
+| R10 | Continue opens the next lesson directly (unchanged); the Today hero now shows only the lesson, its time and one button. |
+| R11 | The orientation runs **inline as a stepped lesson** (one idea per screen, same text as before, shared with the stage page). Welcome → first lesson is one tap, and finishing it unlocks the first badge. |

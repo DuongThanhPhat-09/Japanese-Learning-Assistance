@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { BookA, BookOpen, Brain, ChevronDown, ChevronRight, CircleX, Library, Play, SlidersHorizontal, Wrench, type LucideIcon } from "lucide-react";
+import { motion } from "framer-motion";
+import { BookA, BookOpen, Brain, ChevronDown, ChevronRight, CircleX, Library, ListChecks, Play, SlidersHorizontal, Sparkles, Timer, Wrench, type LucideIcon } from "lucide-react";
 import type { CardKind, SrsCard } from "@/types";
-import { buildSession, forecast, isDue, type SessionOptions } from "@/lib/srs";
+import { buildSession, forecast, type SessionOptions } from "@/lib/srs";
+import { minutesFor, reviewPool, reviewPresets, type ReviewPreset } from "@/lib/review-presets";
 import { leeches } from "@/lib/engine";
 import { missedCards, weakCards } from "@/lib/weak";
 import { cn } from "@/lib/utils";
@@ -32,7 +34,6 @@ const MODES: { mode: SessionOptions["mode"]; label: string; desc: string }[] = [
 ];
 
 const WEAK_LIMIT = 20;
-const SESSION_LIMIT = 30;
 
 type Active = { kind: "cards"; title: string; cards: SrsCard[] } | { kind: "leech"; ids: string[] };
 
@@ -53,12 +54,8 @@ function ReviewView() {
   const [active, setActive] = useState<Active | null>(null);
   const [summary, setSummary] = useState<{ reviewed: number; correct: number } | null>(null);
 
-  // Snapshot so the lists don't reshuffle while the learner is in a session.
-  const due = useMemo(() => {
-    const s = buildSession(list, { mode: "due", limit: SESSION_LIMIT });
-    return s.length < SESSION_LIMIT ? [...s, ...buildSession(list, { mode: "new", limit: Math.min(newPerDay, SESSION_LIMIT - s.length) })] : s;
-  }, [list, newPerDay]);
-  const dueCount = list.filter((c) => isDue(c)).length;
+  const pool = useMemo(() => reviewPool(list, newPerDay), [list, newPerDay]);
+  const presets = useMemo(() => reviewPresets(pool.cards), [pool]);
   const weak = useMemo(
     () => ({
       vocab: weakCards(cards, itemStats, "vocab"),
@@ -80,9 +77,12 @@ function ReviewView() {
     setSummary(null);
   };
 
-  // One-click entry from Home ("Ôn ngay").
+  const startPreset = (p: ReviewPreset) => start(pool.practice ? `Luyện thêm · ${p.label}` : p.id === "full" ? "Ôn hết hôm nay" : p.label, p.cards);
+
+  // One-click entry from Home ("Ôn nhanh").
   useEffect(() => {
-    if (params.get("start") === "1" && due.length) start("Ôn tập đến hạn", due);
+    const want = params.get("start");
+    if (want && presets.length) startPreset(presets.find((p) => p.id === want) ?? presets[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -139,36 +139,15 @@ function ReviewView() {
     <div className="mx-auto flex max-w-2xl flex-col gap-8">
       {header}
 
-      {/* Reviews due now: the primary action */}
-      <Card className="flex flex-col items-center gap-4 px-6 py-8 text-center">
-        <span className={cn("grid size-16 place-items-center rounded-full", dueCount ? "bg-info/12 text-info" : "bg-primary/12 text-primary")}>
-          <Brain className="size-8" />
-        </span>
-        {due.length ? (
-          <>
-            <div>
-              <p className="text-5xl font-black tabular-nums">{dueCount}</p>
-              <p className="mt-1 text-base text-muted-foreground">
-                thẻ đến hạn{due.length > dueCount ? ` · kèm ${due.length - dueCount} thẻ mới` : ""}
-              </p>
-            </div>
-            <Button size="lg" className="w-full sm:w-auto sm:min-w-64" onClick={() => start("Ôn tập đến hạn", due)}>
-              <Play className="fill-current" /> Bắt đầu ôn ({due.length})
-            </Button>
-          </>
-        ) : (
-          <div>
-            <p className="text-xl font-extrabold">Đã ôn xong hôm nay 🎉</p>
-            <p className="mt-1 text-base text-muted-foreground">{tomorrow ? `Ngày mai có ${tomorrow} thẻ đến hạn.` : "Không có thẻ nào đến hạn ngày mai."}</p>
-          </div>
-        )}
-      </Card>
+      {/* Time-boxed, one-click sessions */}
+      <ReviewPresets presets={presets} practice={pool.practice} tomorrow={tomorrow} onStart={startPreset} />
 
-      {/* Weak spots: one click each */}
+      {/* Weak spots: one click each, only the ones that exist */}
+      {actions.some((a) => a.count) && (
       <section className="flex flex-col gap-3">
         <h2 className="text-lg font-bold tracking-tight">Luyện điểm yếu</h2>
         <Card className="divide-y divide-hairline overflow-hidden">
-          {actions.map((a) => (
+          {actions.filter((a) => a.count).map((a) => (
             <button key={a.title} disabled={!a.count} onClick={a.onClick} className="flex w-full items-center gap-4 px-5 py-4 text-left transition-colors hover:bg-muted/50 disabled:pointer-events-none">
               <span className={cn("grid size-11 shrink-0 place-items-center rounded-2xl", a.count ? a.tone : "bg-muted text-muted-foreground")}>
                 <a.icon className="size-5" />
@@ -187,6 +166,7 @@ function ReviewView() {
           ))}
         </Card>
       </section>
+      )}
 
       <CustomSession list={list} newPerDay={newPerDay} onStart={(s) => start("Phiên ôn tùy chỉnh", s)} />
     </div>
@@ -272,6 +252,52 @@ function CustomSession({ list, newPerDay, onStart }: { list: SrsCard[]; newPerDa
           <Button disabled={!preview.length} onClick={() => onStart(preview)} className="self-start">
             <Play /> Bắt đầu ({preview.length} thẻ)
           </Button>
+        </div>
+      )}
+    </section>
+  );
+}
+
+/** One big quick-review button, then the longer time boxes. Never a backlog count. */
+function ReviewPresets({ presets, practice, tomorrow, onStart }: { presets: ReviewPreset[]; practice: boolean; tomorrow: number; onStart: (p: ReviewPreset) => void }) {
+  const [primary, ...rest] = presets;
+  const full = presets[presets.length - 1];
+  return (
+    <section className="flex flex-col gap-4">
+      <Card className="flex flex-col items-center gap-5 px-6 py-8 text-center">
+        <span className={cn("grid size-16 place-items-center rounded-full", practice ? "bg-primary/12 text-primary" : "bg-info/12 text-info")}>
+          {practice ? <Sparkles className="size-8" /> : <Brain className="size-8" />}
+        </span>
+        <div>
+          <p className="text-xl font-extrabold">{practice ? "Bạn đã ôn xong hôm nay 🎉" : "Sẵn sàng ôn tập"}</p>
+          <p className="mx-auto mt-1 max-w-sm text-base text-muted-foreground">
+            {practice
+              ? `Muốn luyện thêm? Chọn một phiên ngắn bên dưới.${tomorrow ? ` Ngày mai có khoảng ${minutesFor(tomorrow)} phút ôn.` : ""}`
+              : `Ôn hết hôm nay mất khoảng ${full.minutes} phút — làm từng chút một cũng rất tốt.`}
+          </p>
+        </div>
+        <motion.div whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
+          <Button size="lg" className="shine h-16 w-full rounded-2xl text-lg sm:min-w-72" onClick={() => onStart(primary)}>
+            <Play className="fill-current" /> {primary.label}
+            <span className="font-semibold opacity-80">· {primary.cards.length} thẻ</span>
+          </Button>
+        </motion.div>
+      </Card>
+      {rest.length > 0 && (
+        <div className={cn("grid gap-3", rest.length === 1 ? "grid-cols-1" : rest.length === 2 ? "grid-cols-2" : "grid-cols-3")}>
+          {rest.map((p) => (
+            <motion.button
+              key={p.id}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              onClick={() => onStart(p)}
+              className="flex flex-col items-center gap-1 rounded-2xl border border-hairline bg-card px-3 py-4 shadow-soft"
+            >
+              {p.id === "full" ? <ListChecks className="size-5 text-primary" /> : <Timer className="size-5 text-primary" />}
+              <span className="font-extrabold">{p.label}</span>
+              <span className="text-xs text-muted-foreground">{p.id === "full" ? `≈ ${p.minutes} phút` : `${p.cards.length} thẻ`}</span>
+            </motion.button>
+          ))}
         </div>
       )}
     </section>

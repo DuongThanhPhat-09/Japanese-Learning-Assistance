@@ -472,7 +472,17 @@ export interface StudyBlock {
 }
 
 /** Blocks the Today page runs inline as a focus session; the others open their own page (`href`). */
-export const INLINE_BLOCKS: ReadonlySet<BlockKind> = new Set<BlockKind>(["review", "learn", "recall", "grammar-drill", "shadowing", "reflex", "leech", "weakness", "checkpoint", "kana-drill", "reflection"]);
+export const INLINE_BLOCKS: ReadonlySet<BlockKind> = new Set<BlockKind>(["review", "learn", "recall", "grammar-drill", "shadowing", "reflex", "leech", "weakness", "checkpoint", "kana-drill", "reflection", "orientation"]);
+
+/**
+ * Title shown to the learner. The review block is framed as a habit, not a
+ * backlog: "Ôn 262 thẻ đến hạn" reads as debt and discourages starting.
+ */
+export function learnerTitle(block: Pick<StudyBlock, "kind" | "title">): string {
+  if (block.kind === "review") return "Ôn lại bài đã học";
+  if (block.kind === "leech") return "Củng cố những thẻ hay quên";
+  return block.title;
+}
 
 export type PlanMode = "normal" | "review-debt" | "consolidation" | "checkpoint" | "immersion" | "light";
 

@@ -17,6 +17,7 @@ import { stageStatus } from "@/lib/engine";
 import { useEngineInput } from "@/hooks/useEngine";
 import { StageIcon } from "@/components/learning/StageIcon";
 import { StageGates } from "@/components/learning/StageGates";
+import { ORIENTATION_SECTIONS } from "@/components/learning/OrientationLesson";
 import { VocabCard } from "@/components/learning/VocabCard";
 import { QuizRunner } from "@/components/learning/QuizRunner";
 import { ReviewSession, SessionSummary } from "@/components/learning/ReviewSession";
@@ -298,12 +299,7 @@ export function StageView({ id }: { id: StageId }) {
 }
 
 function BeginnerIntro() {
-  const sections = [
-    { t: "Ba bảng chữ cái", d: "Hiragana (ひらがな) cho từ thuần Nhật và ngữ pháp; Katakana (カタカナ) cho từ ngoại lai; Kanji (漢字) mang nghĩa — người Việt có lợi thế nhờ âm Hán Việt." },
-    { t: "Phát âm", d: "Tiếng Nhật có 5 nguyên âm a-i-u-e-o, không có thanh điệu như tiếng Việt nhưng có trọng âm cao độ. Âm “u” tròn môi nhẹ; “r” nằm giữa r và l." },
-    { t: "Trật tự câu", d: "Chủ ngữ – Tân ngữ – Động từ (SOV): 私はご飯を食べます = Tôi cơm ăn. Trợ từ (は, を, に…) đánh dấu vai trò của từ." },
-    { t: "Lịch sự", d: "Bắt đầu với thể です・ます. Khi đi làm sẽ học thêm kính ngữ (Keigo) ở giai đoạn Business." },
-  ];
+  const sections = ORIENTATION_SECTIONS;
   return (
     <Card className="md:col-span-2">
       <CardHeader>
